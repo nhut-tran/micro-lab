@@ -37,7 +37,7 @@ app.get('', (req, res) =>{
 //         media
 //     })
 // })
-app.listen(port, '127.0.0.1', ()=> {
+app.listen(port, ()=> {
     console.log('Server is on' + port)
 })
 // const Media = require('./model/media')

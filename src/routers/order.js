@@ -105,6 +105,8 @@ router.post('/order', uploadData.single('nhut'), async (req, res)=> {
         res.status(500).send({err: e.message})
     }
     
+}, (error, req, res, next)=> {
+    res.send({mes: error.message})
 })
 
 router.get('/order', async (req, res)=> {

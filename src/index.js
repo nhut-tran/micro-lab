@@ -1,7 +1,7 @@
 const express =require('express');
 const app =  new express()
 const path = require('path')
-const port = process.env.PORT || 80
+const port = process.env.PORT
 const hbs = require('hbs');
 require('./db/mongoose')
 //import routers
@@ -38,19 +38,19 @@ app.get('', (req, res) =>{
 //     })
 // })
 app.listen(port, '127.0.0.1', ()=> {
-    console.log('Server is on')
+    console.log('Server is on' + port)
 })
-const Media = require('./model/media')
-const Method = require('./model/method');
+// const Media = require('./model/media')
+// const Method = require('./model/method');
 
-const test = async () => {
-        // const media = await Media.findById('5d591bf34c14e709f4532bd8');
-        // await media.populate('useIn.method').execPopulate()
-        const method = await Method.findById('5d5c1811af146724e4597cd1').where()
+// const test = async () => {
+//         // const media = await Media.findById('5d591bf34c14e709f4532bd8');
+//         // await media.populate('useIn.method').execPopulate()
+//         const method = await Method.findById('5d5c1811af146724e4597cd1').where()
         
-    //     await await method.populate({ path: 'medium'}).execPopulate()
-    //    console.log(method.medium)
-}
+//     //     await await method.populate({ path: 'medium'}).execPopulate()
+//     //    console.log(method.medium)
+// }
 //test()
 
 
@@ -97,15 +97,15 @@ const test = async () => {
 // //  console.log(a.split('/')[0]==='cf')
 // //console.log(a)
 
-function modString (str) {
-    if(str.includes('NMKL')) {
-        let  stArr = str.split(':');
-        console.log(stArr)
+// function modString (str) {
+//     if(str.includes('NMKL')) {
+//         let  stArr = str.split(':');
+//         console.log(stArr)
 
-        const resStr = stArr[0]
-        return resStr
+//         const resStr = stArr[0]
+//         return resStr
 
-    }
-}
+//     }
+// }
 //console.log(modString('NMKL 86:2013 (*)'))
 

@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/index.js",
-    "start": "C:/Users/Nhut/mongodb/bin/mongod.exe --dbpath=C:/Users/Nhut/mongodb-data"
+    "start": "nodemon src/index.js",
+    "dev": "env-cmd -f ./config/dev.env nodemon src/index.js",
+    "dev-start": "C:/Users/Nhut/mongodb/bin/mongod.exe --dbpath=C:/Users/Nhut/mongodb-data"
   },
   "author": "",
   "license": "ISC",
@@ -23,6 +24,7 @@
     "validator": "^11.1.0"
   },
   "devDependencies": {
+    "env-cmd": "^9.0.3",
     "nodemon": "^1.19.1"
   }
 }

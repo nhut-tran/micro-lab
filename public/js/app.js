@@ -15,7 +15,7 @@ document.querySelector('form').addEventListener('submit', (e)=> {
         document.getElementById("wait").textContent = data.mes
         document.getElementById("Done").innerHTML = "<a href='/order'>in quan trac</a>"
         }
-        
+        console.log(data)
     }).catch((e) =>{
         document.getElementById("wait").textContent = e.message
     })

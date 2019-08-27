@@ -5,20 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href ="/css/style.css" rel="stylesheet">
-    <title>Nhut</title>
+    <link href ="/css/Grid.css" rel="stylesheet">
+    <title>In Quan Trắc</title>
 </head>
 <body>
     {{>header}}
-    <h1>In quan trac</h1>
-    <div>
-        <form enctype="multipart/form-data" action="/upload/image" method="post">
-        <input id="data" type="file" /><br>
-        <input type="submit" value="Gửi file"/>
-    </form>
-        <h2 id="wait"></h2>
-        <h2 id="Done"></h2>
-         <h2 id="Down"></h2>
-    </div>
     {{download}}
     
     {{>footer}}

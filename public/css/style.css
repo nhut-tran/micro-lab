@@ -1,3 +1,111 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+html {
+    background-color: #cde7e7;
+    color: rgb(24, 23, 23);
+    font-family: 'Lato';
+    font-size: 20px;
+    font-weight: 3000px;
+    text-rendering: optimizeLegibility
+}
+
+
+.row {
+    max-width: 1140px;
+    margin: 0 auto;
+}
+.test {
+    position: relative;
+    background-color:blue;
+    height: auto;
+}
+.sub {
+    position: absolute;
+    background-color: yellow;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%)
+}
+header {
+    background-image: linear-gradient(to right, rgba(185, 156, 147, 0.6), rgba(130, 165, 130, 0.6)), url(../images/nhut.jpg);
+    height: 100vh;
+    background-size: cover;
+    background-position: center
+}
+.header-text-box {
+    position: absolute;
+    top: 50%;
+    left:50%;
+    transform: translate(-80%, -100%)
+}
 h1 {
-    color: red
+    margin: 0px;
+    color: rgb(207, 14, 46);
+    font-size: 300%
+}
+/* .btn:link,
+.btn:visited {
+    text-decoration: none;
+    display: block;
+    float: left;
+    margin-left:20px;
+    margin-top: 30px;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: 300px;
+    transition: background-color 0.5s, color 0.5s
+} */
+.data-form {
+    margin-top: 30px;
+}
+.btn-full{
+    background-color: #eba50f;
+    color: #fff;
+    border: 1px #ececec solid;
+    border-radius: 10%;
+    padding: 10px;
+    margin-left: 30px;
+    display: inline;
+}
+/* .btn-full:hover,
+.btn-full:active {
+    background-color: #fff;
+    color:#eba50f;
+} */
+
+.btn-ghost{
+    border: 1px #eba50f solid;
+    color: #eba50f;
+    font-weight: bold;
+}
+.btn-ghost:hover,
+.btn-ghost:active {
+    background-color: #eba50f;
+    color:#fff;
+}
+#data {
+    color: white
+}
+.header-text-link {
+    margin-top: 30px;
+    position: absolute;
+    top: 60%;
+    left:320px;
+
+}
+.header-text-link a {
+    text-decoration: none;
+    color: white;
+    display: block;
+    padding: 30px;
+    background-color: #eba50f;
+    border: #eba50f 1px solid;
+    border-radius: 15%
+}
+.header-text-link p {
+    font-size: 120%;
+   
 }

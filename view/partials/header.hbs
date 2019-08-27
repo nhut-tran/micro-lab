@@ -1,1 +1,21 @@
-<h1>LAB</h1>
+        <header>
+            <div class="header-text-box">
+            <h1> Quan Trắc Vi Sinh</h1>
+                <div>
+                    <form class="data-form" id="data-form" enctype="multipart/form-data" action="/upload/image" method="post">
+                        
+                         <input  id="data" type="file" style="display:none;"/>  <input id="send" type="submit" value="Gửi file" style="display:none;"/> <br>
+                         <label id ="filename" class="btn btn-full" for="data">Chọn file dữ liệu</label>
+                         <label id="sends" class="btn btn-full" for="send" style="display:none">Gửi dữ liệu</label>
+                    </form>
+                   
+                </div>
+            </div>
+
+            <div class="header-text-link">
+                    <p id="wait"></p>
+                    <p id="Done"></p>
+                    <p id="Download"></p>
+            </div>
+
+        </header>

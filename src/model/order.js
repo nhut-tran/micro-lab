@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Orderchema = new mongoose.Schema({
     Code: {
-        type: String
+        type: Number
     },
     name: {
         type: String,

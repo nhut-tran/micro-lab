@@ -13,12 +13,11 @@ document.querySelector('form').addEventListener('submit', (e)=> {
     }).then((data) => {
         if(data) {
         document.getElementById("wait").textContent = data.mes
-        document.getElementById("Done").innerHTML = "<a href='/order'>in quan trac</a>"
+        document.getElementById("Done").innerHTML = "<a href='/order'>In quan trac</a>"
+        document.getElementById("Down").innerHTML = "<a href='/order'>Dowload quan trac</a>"
         }
-        console.log(data)
     }).catch((e) =>{
         document.getElementById("wait").textContent = e.message
     })
-    
     
 })

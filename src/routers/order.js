@@ -3,8 +3,9 @@ const express = require('express');
 const router = new express.Router();
 const multer = require('multer')
 const fsExtra = require('fs-extra')
+const fs = require('fs')
 const path = require('path')
-const inputData = require('../model/data')
+const archiver = require('archiver')
 var mongoxlsx = require('mongo-xlsx');
 const write = require('../thirdParty/write');
 const config = [
@@ -18,7 +19,18 @@ const config = [
 'ISO 21528-2:2004 (*)', 'ISO 21567:2004 (*)', 'NMKL 125:2005', 'NHS- W5:2005 (*)', 'ISO 4833-1:2013 (*)',
 'TCVN 6187-2:1996', 'NMKL 86:2013 (*)'
 ];
-//const config = ['ISO 7899-2:2000']
+
+function sendZip() {
+    const out = fs.createWriteStream(path.resolve(__dirname, `../zip/nhut.zip`))
+    const archive = archiver('zip', {
+        zlib: { level: 9 } // Sets the compression level.
+      });
+      archive.pipe(out);
+      archive.directory(path.resolve(__dirname, `../output/`), false)
+      archive.finalize()
+    
+      
+}
 function modString (str) {
     if(str.includes('ISO') || str.includes('TCVN') || str.includes('NHS') ) {
         
@@ -119,7 +131,7 @@ router.get('/order', async (req, res)=> {
         const modItem = modString(item)
         //item.replace('ISO ','').replace(' (*)', '')     
         const regex = new RegExp(modItem, "i")
-        const data = await Order.find({Method: regex})
+        const data = await Order.find({Method: regex},null, {sort: {Code: 1}})
         if(data.length > 0) {
             write(data, pathItem, pathItem)
         } else {
@@ -134,11 +146,20 @@ router.get('/order', async (req, res)=> {
         // check last item to send data back
         if(config.findIndex((e) => e===item)===config.length-1) {
             write(all, 'output', 'output')
-            res.send('HẢO BÊ ĐÊ')
+             sendZip()
+             res.render('download')
+          
+
+
         }
     }
     
 })
-    
+router.get('/download', (req, res) => {
+    res.set({'Content-Type': 'application/zip'})
+    res.download('./src/zip/nhut.zip', `HaoBEDE-${new Date().toISOString().split('T')[0]}.zip`)
+    // fs.createReadStream("./src/zip/nhut.zip").pipe(res);
+
+})
 
 module.exports = router

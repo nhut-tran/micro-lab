@@ -17,11 +17,7 @@ html {
     max-width: 1140px;
     margin: 0 auto;
 }
-.test {
-    position: relative;
-    background-color:blue;
-    height: auto;
-}
+
 .sub {
     position: absolute;
     background-color: yellow;
@@ -30,7 +26,7 @@ html {
     transform: translate(-50%,-50%)
 }
 header {
-    background-image: linear-gradient(to right, rgba(185, 156, 147, 0.6), rgba(130, 165, 130, 0.6)), url(../images/nhut.jpg);
+    background-image: linear-gradient(to right, rgba(14, 12, 12, 0.705), rgba(29, 31, 29, 0.781)), url(../images/nhut.jpg);
     height: 100vh;
     background-size: cover;
     background-position: center
@@ -39,12 +35,15 @@ header {
     position: absolute;
     top: 50%;
     left:50%;
-    transform: translate(-80%, -100%)
+    transform: translate(-50%, -45%)
 }
 h1 {
     margin: 0px;
-    color: rgb(207, 14, 46);
-    font-size: 300%
+    color: rgb(255, 255, 255);
+    font-size: 300%;
+    font-weight: 300;
+    word-spacing: 4px;
+    text-transform: uppercase
 }
 /* .btn:link,
 .btn:visited {
@@ -62,50 +61,66 @@ h1 {
     margin-top: 30px;
 }
 .btn-full{
-    background-color: #eba50f;
-    color: #fff;
-    border: 1px #ececec solid;
-    border-radius: 10%;
-    padding: 10px;
-    margin-left: 30px;
-    display: inline;
-}
-/* .btn-full:hover,
-.btn-full:active {
-    background-color: #fff;
-    color:#eba50f;
-} */
+   
+    color:#eb0f0f;
 
-.btn-ghost{
-    border: 1px #eba50f solid;
-    color: #eba50f;
-    font-weight: bold;
+    border: 2px rgba(238, 204, 204, 0.8) solid;
+    border-radius: 200px;
+    padding: 15px 20px;
+    margin-left: 30px;
+    display: inline-block;
+    
 }
-.btn-ghost:hover,
-.btn-ghost:active {
-    background-color: #eba50f;
+.btn-full:hover,
+.btn-full:active {
     color:#fff;
+    background-color:#eba50f;
+    cursor: pointer;
 }
-#data {
-    color: white
-}
+
 .header-text-link {
-    margin-top: 30px;
+    top: 70%;
+    left: 28%;
     position: absolute;
-    top: 60%;
-    left:320px;
 
 }
 .header-text-link a {
     text-decoration: none;
-    color: white;
+    color: #0f1eeb;
     display: block;
-    padding: 30px;
-    background-color: #eba50f;
-    border: #eba50f 1px solid;
-    border-radius: 15%
+    padding: 20px 30px;
+    background-color: #fff;
+    border: #fff 1px solid;
+    border-radius: 200px
 }
 .header-text-link p {
+    display: inline-block;
+    padding: 20px 30px; 
     font-size: 120%;
-   
+    color: rgb(236, 13, 13);
+    font-weight: 400;
+}
+
+.main-nav {
+    margin-top: 20px;
+    float: right;
+    list-style: none;
+}
+.main-nav li {
+    float: left;
+    padding: 5px 10px;
+    margin-left: 2px;
+    color: #fff;
+    border-right: 1px solid rgb(110, 108, 108);
+}
+.main-nav li:last-child {
+    border-right: none
+}
+.main-nav li:hover,
+.main-nav li:active
+ {
+    cursor: pointer;
+    border-bottom: 1px solid #eba50f;
+    color:#eba50f
+
 }

@@ -15,20 +15,21 @@ document.querySelector('form').addEventListener('submit', (e)=> {
            return res.json()
         }
     }).then((data) => {
-        if(data) {
+        if(data.mes) {  
         document.getElementById("wait").textContent = data.mes
-        document.getElementById("Done").innerHTML = "<a href='#'>In</a>"
-        document.getElementById("wait").textContent = ''
-    }
-    }).catch((e) =>{
-        document.getElementById("wait").textContent = e.message
+        document.getElementById("Done").innerHTML = "<a href='#'>Bắt đầu in</a>"
+        }
+        if(data.err) {
+    
+            document.getElementById("wait").textContent = data.err
+        }
     })
     
 })
 
 document.getElementById("Done").addEventListener('click', (e)=> {
     document.getElementById("wait").textContent = ''
-    e.target.innerHTML = "Vui lòng đợi trong giây lát........."
+    e.target.innerHTML = "Vui lòng đợi trong giây lát..."
     fetch('/order', {method: "GET"}).then((res) => {
        
         if(res.status === 200) {
@@ -36,9 +37,7 @@ document.getElementById("Done").addEventListener('click', (e)=> {
         }
     }).then((data) => {
         if(data) {
-        document.getElementById("Done").innerHTML = ""
-        document.getElementById("Download").innerHTML="<a href='/download'>Tải xuống</a>"
-        
+        document.getElementById("Download").innerHTML = "<a href='/download'>Tải xuống</a>"
         }
     }).catch((e) =>{
         document.getElementById("Download").textContent = e.message
@@ -46,7 +45,6 @@ document.getElementById("Done").addEventListener('click', (e)=> {
     
 })
 
-// document.getElementById("Download").addEventListener('click', (e)=> {
-//     console.log(e)
-//     window.location.assign='/'
-// })
+document.getElementById("Download").addEventListener('click', (e)=> {
+    document.getElementById("Done").textContent =''
+})

@@ -60,7 +60,7 @@ const uploadData = multer({
     storage: storage,
     fileFilter(req, file, cb) {
         if(!file.originalname.match(/\.(xlsx|xls|txt)$/)) {
-           cb(new Error('Chỉ chấp nhận file excel'))
+           cb(new Error('Chỉ chấp nhận file excel 2016 hoặc file .txt Unicode'))
            
        }
         cb(undefined, true)

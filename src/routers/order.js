@@ -17,13 +17,18 @@ const config = [
 
 
 router.post('/order', util.uploadData.single('nhut'), async (req, res, next)=> {
-   
+  
     try {
+        
         if(!req.file) {
-            return res.send({mes: 'Không có file nào được chọn'})
+            
+         return res.send({mes: 'Không có file nào được chọn'})
         }
             const model = null;
             const xlsx  = './src/upload/nhut';
+            if(!fsExtra.existsSync(xlsx)) {
+                throw new Error('Lỗi hệ thống, Vui lòng quay lại sau')
+            }
             mongoxlsx.xlsx2MongoData(xlsx, model,  function(err, data) {
                 if(data) {
                         Order.deleteMany({}, ()=> {
@@ -47,18 +52,15 @@ router.post('/order', util.uploadData.single('nhut'), async (req, res, next)=> {
                         })
                     })
                     res.send({mes: 'Nạp dữ liệu thành Công'})
-                } else {
-                   throw new Error('Khong tim thay file data')
-               
                 }
                 
              });
     } catch (e) {
-        res.send({mes: e.message})
+        res.send({err: e.message})
     }
     
 }, (error, req, res, next)=> {
-    res.send(error)
+    res.send({err: error.message})
 
 })
 
@@ -74,6 +76,7 @@ router.get('/order', async (req, res)=> {
         const modItem = util.modString(item)
         const regex = new RegExp(modItem, "i")
         const data = await Order.find({Method: regex},null, {sort: {Code: 1}})
+    
         if(data.length > 0) {
             write(data, pathItem, pathItem)
         } 

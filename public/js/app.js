@@ -15,7 +15,7 @@ document.querySelector('form').addEventListener('submit', (e)=> {
            return res.json()
         }
     }).then((data) => {
-        if(data.mes) {  
+        if(data.mes) {   
         document.getElementById("wait").textContent = data.mes
         document.getElementById("Done").innerHTML = "<a href='#'>Bắt đầu in</a>"
         }
@@ -47,4 +47,14 @@ document.getElementById("Done").addEventListener('click', (e)=> {
 
 document.getElementById("Download").addEventListener('click', (e)=> {
     document.getElementById("Done").textContent =''
+})
+
+document.querySelector('.meth').addEventListener('click', (e) => {
+    fetch('/method/5d5d678a5db3cb10ac09915b', {method: "GET"}).then((res) => {
+        if(res.status === 200) {
+           return res.json()
+        }
+    }).then((data) => {
+        console.log(data)
+    })
 })

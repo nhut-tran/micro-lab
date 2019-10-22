@@ -5,18 +5,22 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
-    "dev": "env-cmd -f ./config/dev.env nodemon src/index.js -e js, hbs",
-    "dev-start": "C:/Users/Nhut/mongodb/bin/mongod.exe --dbpath=C:/Users/Nhut/mongodb-data"
+    "dev": "env-cmd -f ./config/dev.env nodemon src/index.js -e js,hbs",
+    "dev-start": "C:/Users/Nhut/mongodb/bin/mongod.exe --dbpath=C:/Users/Nhut/mongodb-data",
+    "webpack": "webpack"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/polyfill": "^7.6.0",
     "archiver": "^3.1.1",
+    "axios": "^0.19.0",
     "bcryptjs": "^2.4.3",
     "docxtemplater": "^3.14.1",
     "express": "^4.17.1",
     "fs-extra": "^8.1.0",
     "hbs": "^4.0.4",
+    "jsonwebtoken": "^8.5.1",
     "mongo-xlsx": "^1.0.12",
     "mongoose": "^5.6.9",
     "multer": "^1.4.2",
@@ -24,10 +28,17 @@
     "random": "^2.1.1",
     "random-normal": "^1.0.0",
     "simple-excel-to-json": "^2.2.1",
+    "source-map": "^0.7.3",
     "validator": "^11.1.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.6.0",
+    "@babel/preset-env": "^7.6.0",
+    "babel-loader": "^8.0.6",
     "env-cmd": "^9.0.3",
-    "nodemon": "^1.19.1"
+    "nodemon": "^1.19.1",
+    "nodemon-webpack-plugin": "^4.1.1",
+    "webpack": "^4.39.3",
+    "webpack-cli": "^3.3.8"
   }
 }

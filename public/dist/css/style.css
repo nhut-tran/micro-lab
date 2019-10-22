@@ -1,0 +1,271 @@
+.loader {
+
+    text-align: center;
+}
+.loader img {
+    animation: rotate 0.5s infinite linear;
+    height: 80px;
+    width: 80px;
+    -webkit-animation: rotate 0.5s infinite linear;
+}
+/* @keyframes rotate {
+    8% {
+        transform: rotate(0)    ;
+        -webkit-transform:;
+        -moz-transform:;
+        -ms-transform:;
+        -o-transform:;
+}
+    100% {
+        transform: rotate(360deg)    ;
+        -webkit-transform: rotate(360deg)    ;
+        -moz-transform: rotate(360deg)    ;
+        -ms-transform: rotate(360deg)    ;
+        -o-transform: rotate(360deg)    ;
+}
+} */
+
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+html {
+    background-color: #fff;
+    color: rgb(24, 23, 23);
+    font-family: 'Lato';
+    font-size: 20px;
+    font-weight: 3000px;
+    text-rendering: optimizeLegibility
+}
+
+
+.row {
+    max-width: 1140px;
+    margin: 0 auto;
+}
+.top-header {
+    background-color: #e5f7f7fa;
+}
+
+.top-header img {
+    width: 150px;
+    height: auto;
+    display: block;
+
+    margin-left:50px;
+
+}
+
+header {
+    padding: 10px 0;
+    background-color: transparent;
+    vertical-align: middle
+}
+.header-text-box {
+    position: absolute;
+    top: 50%;
+    left:60%;
+    transform: translate(-50%, -45%);
+    height: auto;
+}
+h1, h2, h3 {
+    font-weight: 300;
+    text-transform: uppercase;
+    
+}
+h1 {
+    margin: 0px;
+    color: rgb(255, 255, 255);
+    font-size: 200%;
+    letter-spacing: 2px;
+    word-spacing: 4px;
+}
+h2 {
+    font-size: 120%;
+    text-align: center;
+    margin-bottom: 30px;
+    letter-spacing: 2px;
+    color: #40ccf7fb
+}
+/* .btn:link,
+.btn:visited {
+    text-decoration: none;
+    display: block;
+    float: left;
+    margin-left:20px;
+    margin-top: 30px;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: 300px;
+    transition: background-color 0.5s, color 0.5s
+} */
+.data-form {
+    margin-top: 30px;
+}
+.btn-full{
+   
+    color:#eb0f0f;
+    border: 2px rgba(238, 204, 204, 0.8) solid;
+    border-radius: 200px;
+    padding: 15px 20px;
+    margin-left: 30px;
+    display: inline-block;
+    
+}
+.btn-full:hover,
+.btn-full:active {
+    color:#fff;
+    background-color:#eba50f;
+    cursor: pointer;
+    transition: background-color 1s;
+}
+
+.header-text-link {
+    top: 70%;
+    left: 28%;
+    position: absolute;
+
+}
+.header-text-link a {
+    text-decoration: none;
+    color: #0f1eeb;
+    display: block;
+    padding: 20px 30px;
+    background-color: #fff;
+    border: #fff 1px solid;
+    border-radius: 200px
+}
+.header-text-link p {
+    display: inline-block;
+    padding: 20px 30px; 
+    font-size: 120%;
+    color: rgb(236, 13, 13);
+    font-weight: 400;
+}
+/* Main nav */
+.main-nav {
+    float: right;
+    list-style: none;
+    width: 80%;
+    margin-right: 2px;
+}
+.main-nav li {
+    float: right;
+    padding: 5px 10px;
+    margin-left: 2px;
+    color: #fff;
+    border-right: 1px solid rgb(110, 108, 108);
+    font-size: 90%;
+}
+.main-nav li:last-child {
+    border-right: none
+}
+.main-nav a {
+    text-decoration: none;
+    color: rgb(10, 73, 146);
+    font-weight: 300%;
+    
+}
+.main-nav a:hover,
+.main-nav a:active
+ {
+    cursor: pointer;
+    border-bottom: 1px solid #eba50f;
+    color:#eba50f;
+    transition: border-bottom, color 0.5s;
+
+}
+.user-info {
+    display: none;
+    background-color: #e8f2f3
+}
+.user-info li {
+    float: none;
+    list-style: none;
+    border: none;
+    
+}
+.user:hover .user-info {
+    display: block;
+    position: absolute;
+    right: 450px;
+    top:40px;
+
+}
+
+.main-nav li a {
+    text-transform: uppercase;
+    font-size: 90%
+}
+.disbaleAll {
+    pointer-events: none;
+    opacity: 0.5;
+}
+/*----------------- feature---------------
+n1/1*0.01 + n2/1*0.001
+v(1*10^2+ 1*10^3)
+-------------------- */
+.long-text {
+    width: 80%;
+    margin-left: 10%;
+    margin-bottom: 20px;
+    text-align: center;
+}
+h2:after {
+ display: block;
+ height: 2px;
+ background-color: #f7bd40fb;
+ margin-top: 30px;
+ content: " ";
+ width: 40%;
+ margin-left: 30%;
+
+}
+section {
+    padding: 40px;
+}
+
+.container {
+    background-image: linear-gradient(to right, rgba(60, 61, 61, 0.774), rgba(77, 76, 76, 0.829)), url(../images/bacteria-2.JPG);
+    height: 100vh;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+}
+
+.message {
+    position: absolute;
+    top: 50%;
+    left:50%
+    
+}
+.err-login {
+    color: white;
+}
+.login-form {
+    position: absolute;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%, -45%);
+    height: auto;
+    -webkit-transform: translate(-50%, -45%);
+    -moz-transform: translate(-50%, -45%);
+    -ms-transform: translate(-50%, -45%);
+    -o-transform: translate(-50%, -45%);
+}
+
+.login-form input {
+    
+}
+.god-box {
+   background-color: #e8f2f3
+}
+
+.left-box {
+   background-color: #f5f6f7;
+   height: 100vh;
+   margin-right: 0;
+}
+
+

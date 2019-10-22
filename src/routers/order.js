@@ -1,4 +1,5 @@
 const Order = require('../model/order');
+const mongoose = require('mongoose')
 const express = require('express');
 const router = new express.Router();
 const fsExtra = require('fs-extra')
@@ -6,6 +7,7 @@ const path = require('path')
 const util = require('../thirdParty/utils')
 var mongoxlsx = require('mongo-xlsx');
 const write = require('../thirdParty/write');
+const validateUser = require('../middleware/validateuser')
 const config = [
 'ISO 4831-DT:2006 (*)', 'ISO 4831-DL:2006 (*)', 'ISO 7251-DT:2005 (*)', 'ISO 7251-DL:2005 (*)'
 , 'ISO 6579-1:2017 (*)', 'ISO 4832:2006 (*)','ISO 9308-1:2014 (*)', 'ISO 16649-2:2001 (*)', 'ISO 7937:2004 (*)', 'ISO 4832:2006 (*)',
@@ -15,8 +17,10 @@ const config = [
 'ISO 21528-2:2004 (*)', 'ISO 21567:2004 (*)', 'NMKL 125:2005', 'NHS- W5:2005 (*)', 'ISO 4833-1:2013 (*)','TCVN 6187-2:1996', 'NMKL 86:2013 (*)'
 ];
 
-
-router.post('/order', util.uploadData.single('nhut'), async (req, res, next)=> {
+router.post('/order/validate', validateUser, (req, res) => {
+    res.send()
+})
+router.post('/order', validateUser, util.uploadData.single('nhut'), async (req, res, next)=> {
   
     try {
         
@@ -29,10 +33,19 @@ router.post('/order', util.uploadData.single('nhut'), async (req, res, next)=> {
             if(!fsExtra.existsSync(xlsx)) {
                 throw new Error('Lỗi hệ thống, Vui lòng quay lại sau')
             }
-            mongoxlsx.xlsx2MongoData(xlsx, model,  function(err, data) {
+            let order = await Order.findOne({user: req.user._id})
+                    if(!order) {
+                        order = await new Order({
+                            user: req.user._id
+                        }) 
+            } else {
+                //not first time overwrite old data
+                order.datas = []
+             
+            }
+            mongoxlsx.xlsx2MongoData(xlsx, model,  async function(err, data) {
                 if(data) {
-                        Order.deleteMany({}, ()=> {
-                        data.forEach(async (e)=> {
+                       const modeldata = data.map((e)=> {
                             if(e.Method === 'FDA/BAM CHAPTER 18:2001') {
                                 e.Method = 'ISO 21527-1:2008 (*)'
                             }
@@ -47,11 +60,12 @@ router.post('/order', util.uploadData.single('nhut'), async (req, res, next)=> {
                                 }
                                 e.Method = midd.toString()
                             }
-                            const order = new Order(e)
-                                await order.save()
+                            order.add(e)
                         })
-                    })
-                    res.send({mes: 'Nạp dữ liệu thành Công'})
+                    //check if user first time use this function=> create new document
+                    await order.save()
+                    res.status(200).send({mes: 'Nạp dữ liệu thành Công'})
+                   
                 }
                 
              });
@@ -64,33 +78,54 @@ router.post('/order', util.uploadData.single('nhut'), async (req, res, next)=> {
 
 })
 
-router.get('/order', async (req, res)=> {
+router.get('/order',validateUser, async (req, res)=> {
 
     //emty ouput folder
     fsExtra.emptyDirSync(path.resolve(__dirname, '../output/'))
     //get all data to check later
-    let all = await Order.find({}, { '_id': 0})
+    let all = await Order.findOne({user: req.user._id}).select('datas')
     //loop throug all config method
     for (const item of config) {
         const pathItem = item.replace(':','-').replace(' (*)', '') //modify method -> filename
         const modItem = util.modString(item)
         const regex = new RegExp(modItem, "i")
-        const data = await Order.find({Method: regex},null, {sort: {Code: 1}})
-    
+        const pipeline = [{$match : {'datas.Method': regex}}]
+        let data = await Order.aggregate([{
+            "$match": {
+                "user": new mongoose.mongo.ObjectId(req.user._id)
+            }
+        }, {
+            "$unwind": "$datas"
+        },{
+            "$sort": {
+                "datas.Code": 1
+            }
+        },{
+                "$project": {
+                    "_id": 0,
+                    "datas": 1,
+                }
+            }
+        
+    ]).facet({
+            datas: pipeline
+        })
+        data = data[0].datas.map((e)=>e.datas)
         if(data.length > 0) {
             write(data, pathItem, pathItem)
         } 
        //check method not have form
-        all = all.filter((e)=> {
+        all.datas = all.datas.filter((e)=> {
+            console.log(e.Method)
            if(!e.Method.includes(modItem)) {
                return e
            }
         })
         // check last item to send data back
         if(config.findIndex((e) => e===item)===config.length-1) {
-            write(all, 'output', 'output') //write method not have form in output form
+            write(all.datas, 'output', 'output') //write method not have form in output form
              util.sendZip()
-             res.send({data:'Xong'})
+             res.send({mes:'Xong'})
 
         }
     }
@@ -99,12 +134,71 @@ router.get('/order', async (req, res)=> {
 
 router.get('/download', (req, res) => {
     res.set({'Content-Type': 'application/zip'})
-    res.download('./src/zip/nhut.zip', `HaoBEDE-${new Date().toISOString().split('T')[0]}.zip`, ()=> {
-        
+    res.download('./src/zip/nhut.zip', `nhut-${new Date().toISOString().split('T')[0]}.zip`, ()=> {
+      
     });
     
     // fs.createReadStream("./src/zip/nhut.zip").pipe(res);
 
 })
 
+router.get('/order/test', validateUser, async (req, res) => {
+    // const data = await Order.findOne({user: req.user._id}, 'datas')
+    // const datas = data.datas.filter((e)=> {
+    //     if(e.Method.includes('6888-1')){
+            
+    //         return e
+    //     }
+    // })
+    // res.send(datas)
+    //ISO 6888-1:2003 (*)
+    const modItem = util.modString('ISO 6888-1:2003 (*)')
+    console.log(modItem)
+    const regexs = new RegExp(modItem, "i")
+    const pipeline = [{$match : {'datas.Method': regexs}}]
+    const data = await Order.aggregate([{
+        "$match": {
+            "user": new mongoose.mongo.ObjectId(req.user._id)
+        }
+    }, {
+        "$unwind": "$datas"
+    },{
+        "$sort": {
+            "datas.Code": 1
+        }
+    },{
+            "$project": {
+                "_id": 0,
+                "datas": 1,
+            }
+        }
+    
+]).facet({
+        datas: pipeline
+    })
+    
+    res.send(data[0].datas.map((e)=>e.datas))
+}) 
 module.exports = router
+// ,{
+//     "$group": {
+//         "datas": {
+//             "$push": "$datas"
+//         },
+//         "_id": 0
+//     }
+//  },{
+//     "$project": {
+//         "_id": 0,
+//         "datas": 1
+//     }
+// },
+// {
+//     "$redact": {
+//         "$cond": [
+//             { "$eq": ["$datas.method", ''] },
+//             "$$KEEP",
+//             "$$PRUNE"
+//         ]
+//     }
+// }

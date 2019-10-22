@@ -1,0 +1,32 @@
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <title>In Quan Trac</title>
+ </head>
+ <body>
+     {{>header}}
+<div class="header-text-box">
+            <h1> Quan Trắc Vi Sinh</h1>
+                <div>
+                    <form class="data-form" id="data-form" enctype="multipart/form-data" action="/upload/image" method="post">
+                        
+                         <input  id="data" type="file" style="display:none;"/>  <input id="send" type="submit" value="Gửi file" style="display:none;"/> <br>
+                         <label id ="filename" class="btn-full" for="data">Chọn file dữ liệu</label>
+                         <label id="sends" class="btn-full" for="send" style="display:none">Gửi dữ liệu</label>
+                    </form>
+                   
+                </div>
+                
+</div>
+
+            <div class="header-text-link">
+                <p id="wait"></p><br>
+                <p id="Done"></p>
+                <p id="Download"></p><br>
+            </div>
+    {{>footer}}
+ </body>
+ </html>

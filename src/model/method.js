@@ -18,21 +18,58 @@ const methodSchema = new mongoose.Schema({
                     type: String,
                     required: true
                 },
-                mediaQuantity: [
+                media: [
                     {
                         mediaName : {
                             type: mongoose.Schema.Types.ObjectId,
                             required: true,
                             ref: 'Media'
                         },
-                        quantity: {
+                        mediaQuantity: {
                             type: Number,
                             required: true,
+                        },
+                        mediaUnit: {
+                            type: String,
+                            required: true
                         }
-                    }       
+                        
+                    }
+
                 ] 
         
-    }]
+    }],
+    
+    duration: {
+        long: {
+            type: Number,
+            required: true
+        },
+        short: {
+            type: Number,
+            default: 0
+        }
+    },
+
+    controlStrain: {
+        positive: {
+            type: String,
+            required: true
+        },
+        negative: {
+            type: String,
+            required: true
+        }
+    },
+
+    ReadingInterval: {
+        top: {
+            type: Number,
+        },
+        bottom: {
+            type: Number
+        }
+    }
 
     
 });
@@ -43,11 +80,12 @@ methodSchema.virtual('medium', {
     foreignField: 'useIn.method'
 })
 
+
+
 methodSchema.methods.publicMethod = async function () {
     const method = this;
-   await method.populate(`steps.mediaQuantity.mediaName`, 'name').execPopulate();
-    
-    return method
+   await method.populate(`steps.media.mediaName`, 'name').execPopulate();
+   return method
 }
 methodSchema.methods.saveMedia = async function () {
     const method = this;
@@ -61,7 +99,7 @@ methodSchema.methods.saveMedia = async function () {
     })
 
 }
-methodSchema.methods.updateMedia = async function(updateVersion) {
+methodSchema.methods.updateMedia = async function() {
     const method =this;
    await method.steps.map(async (step)=> {
         for (let i of step.mediaQuantity) {

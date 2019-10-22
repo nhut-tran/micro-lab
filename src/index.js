@@ -8,6 +8,7 @@ require('./db/mongoose')
 const methodRouter = require('./routers/method')
 const mediaRouter = require('./routers/media')
 const orderRouter = require('./routers/order')
+const userRouter = require('./routers/user')
 //set satic asset and path
 const staticPath = path.join(__dirname, '../public')
 const viewPath = path.join(__dirname, '../view')
@@ -22,6 +23,7 @@ app.use(express.json())
 app.use(mediaRouter);
 app.use(methodRouter);
 app.use(orderRouter);
+app.use(userRouter);
 app.get('', (req, res) =>{
     res.render('index')
 })
@@ -37,6 +39,9 @@ app.get('', (req, res) =>{
 //         media
 //     })
 // })
+app.get('/login', (req, res) => {
+    res.render('login')
+})
 app.listen(port, ()=> {
     console.log('Server is on' + port)
 })

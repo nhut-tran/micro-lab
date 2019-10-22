@@ -2,7 +2,8 @@ const express = require('express');
 const router = new express.Router();
 const Media = require('../model/media');
 const validate = require('../middleware/validate')
-router.post('/media', async (req, res)=> {
+const validateUser = require('../middleware/validateuser')
+router.post('/media', validateUser, async (req, res)=> {
     const media = new Media(req.body);
     try{
         await media.save()
@@ -12,8 +13,20 @@ router.post('/media', async (req, res)=> {
     }
     
 })
+router.get('/media/all', validateUser, async (req, res)=> {
+    try {
+        const result = await Media.find()
+        if(result) {
+            res.send(result)
+        }
+       
+    } catch (e) {
+        res.status(500).send({err:e.message})
+    }
+})
 router.get('/media/:id', validate.validateMedia, async (req, res)=> {
     try {
+        console.log(req.media)
         res.send(req.media)
     } catch (e) {
         res.status(500).send({err: e.message})

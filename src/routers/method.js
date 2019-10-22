@@ -3,8 +3,15 @@ const router = new express.Router();
 const Method = require('../model/method');
 const Media = require('../model/media');
 const validate = require('../middleware/validate')
-router.get('/method', (req, res)=> {
-    res.render('index')
+router.get('/method', async (req, res)=> {
+    try{
+        const method = await Method.find({})
+        const public = method.map(e => e.publicMethod())
+        Promise.all(public).then(data => data).then(data => res.send(data))
+
+    } catch {
+
+    }
 })
 
 //create new method
@@ -12,8 +19,8 @@ router.post('/method', async (req, res)=> {
     try {
         
         const method = new Method(req.body);
-       await method.save();
-      await  method.saveMedia()
+        await method.save();
+        await  method.saveMedia()
         const public = await method.publicMethod()
         res.status(201).send(public)
     }

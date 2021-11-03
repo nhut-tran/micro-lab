@@ -29,7 +29,7 @@
     "random-normal": "^1.0.0",
     "simple-excel-to-json": "^2.2.1",
     "source-map": "^0.7.3",
-    "validator": "^11.1.0"
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "@babel/core": "^7.6.0",
